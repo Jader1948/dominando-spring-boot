@@ -1,10 +1,9 @@
 package academy.devdojo.controller;
 
 
+import academy.devdojo.domain.Anime;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,7 +12,19 @@ import java.util.List;
 public class AnimeController {
 
     @GetMapping
-    public List<String> list(){
-        return List.of("Hell's' Paradise (JigoKuraku)","Dr. Stone", "Konosuba");
+    public List<Anime> list(@RequestParam(required = false) String name) {
+        var animes = Anime.getAnimes();
+        if (name == null) return animes;
+        return animes.stream().filter(anime -> anime.getName().equalsIgnoreCase(name)).toList();
+
+    }
+
+    @GetMapping("{id}")
+    public Anime findById(@PathVariable Long id) {
+        return Anime.getAnimes()
+                .stream()
+                .filter(anime -> anime.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }
