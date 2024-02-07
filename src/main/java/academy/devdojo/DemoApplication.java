@@ -10,8 +10,6 @@ import java.util.Arrays;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        var applicationContext = SpringApplication.run(DemoApplication.class, args);
-        Arrays.stream(applicationContext.getBeanDefinitionNames())
-                .forEach(System.out::println);
+       SpringApplication.run(DemoApplication.class, args);
     }
 }
