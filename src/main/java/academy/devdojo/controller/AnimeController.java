@@ -22,7 +22,6 @@ import java.util.List;
 public class AnimeController {
 
     private final AnimeMapper mapper;
-
     private final AnimeService animeService;
 
     @GetMapping
