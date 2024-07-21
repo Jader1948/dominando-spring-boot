@@ -29,7 +29,7 @@ public class ProducerController {
 
 
     @GetMapping
-    public ResponseEntity<List<ProduceGetResponse>> list(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<ProduceGetResponse>> findAll(@RequestParam(required = false) String name) {
         log.info("Request received to list all Producers, param name '{}'", name);
         var producers = producerService.findAll(name);
 

@@ -35,7 +35,7 @@ public class ProducerService {
 
     public void update(Producer producerToUpdate){
         var producer = findById(producerToUpdate.getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found to be deleted"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producer not found to be updated"));
         producerToUpdate.setCreatedAt(producer.getCreatedAt());
         repository.update(producerToUpdate);
     }

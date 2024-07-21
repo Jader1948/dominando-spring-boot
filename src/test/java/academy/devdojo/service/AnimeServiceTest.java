@@ -36,7 +36,6 @@ class AnimeServiceTest {
         var SteinsGate = Anime.builder().id(2L).name("Steins Gate").build();
         var Mashle = Anime.builder().id(3L).name("Mashle").build();
         animes = new ArrayList<>(List.of(ShingekiNoKyoin, SteinsGate, Mashle));
-
     }
     @Test
     @DisplayName("findAll() returns a list with all animes")
