@@ -50,7 +50,7 @@ class AnimeControllerTest {
     @DisplayName("findAll() returns a list with all animes")
     @Order(1)
     void findAll_ReturnsAllAnimes_WhenSuccessful() throws Exception{
-        var response = readResourcesFile("get-anime-null-name-200.json");
+        var response = readResourcesFile("anime/get-anime-null-name-200.json");
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/animes"))
                 .andDo(MockMvcResultHandlers.print())
@@ -63,7 +63,7 @@ class AnimeControllerTest {
     @Order(2)
     void findAll_ReturnsFoundAnimes_WhenNameIsPassedAndFound() throws Exception{
         var name = "Mashle";
-        var response =  readResourcesFile("get-anime-mashle-name-200.json");
+        var response =  readResourcesFile("anime/get-anime-mashle-name-200.json");
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/animes").param("name", name))
                 .andDo(MockMvcResultHandlers.print())
@@ -76,7 +76,7 @@ class AnimeControllerTest {
     @Order(3)
     void findAll_ReturnsEmptyList_WhenSuccessful() throws Exception{
         var name = "x";
-        var response = readResourcesFile("get-anime-x-name-200.json");
+        var response = readResourcesFile("anime/get-anime-x-name-200.json");
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/animes").param("name", name))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -99,8 +99,8 @@ class AnimeControllerTest {
     @DisplayName("save() Creates anime")
     @Order(6)
     void save_createAnime_WhenSuccessful() throws Exception{
-        var request = readResourcesFile("post-request-anime-201.json");
-        var response = readResourcesFile("post-response-anime-201.json");
+        var request = readResourcesFile("anime/post-request-anime-201.json");
+        var response = readResourcesFile("anime/post-response-anime-201.json");
         var animeToSave = Anime.builder()
             .id(99L)
             .name("Hajime No Ippo")
@@ -122,7 +122,7 @@ class AnimeControllerTest {
     @DisplayName("update() update a anime")
     @Order(7)
     void update_UpdateAnime_WhenSuccessful() throws Exception{
-        var request = readResourcesFile("put-request-anime-204.json");
+        var request = readResourcesFile("anime/put-request-anime-204.json");
 
         mockMvc.perform(MockMvcRequestBuilders
                 .put("/v1/animes")
@@ -137,7 +137,7 @@ class AnimeControllerTest {
     @DisplayName("update() throw ResponseStatusException when no anime is found")
     @Order(8)
     void update_ThrowsResponseException_WhenNoAnimeIsFound() throws Exception{
-        var request = readResourcesFile("put-request-anime-404.json");
+        var request = readResourcesFile("anime/put-request-anime-404.json");
 
         mockMvc.perform(MockMvcRequestBuilders
                 .put("/v1/animes")
@@ -167,6 +167,7 @@ class AnimeControllerTest {
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+
     }
     private String readResourcesFile(String fileName) throws Exception{
         var file = resourceLoader.getResource("classpath:%s".formatted(fileName)).getFile();

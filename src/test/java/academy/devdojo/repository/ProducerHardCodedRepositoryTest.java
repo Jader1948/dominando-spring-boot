@@ -1,6 +1,7 @@
 package academy.devdojo.repository;
 
 
+import academy.devdojo.commons.ProducerUtils;
 import academy.devdojo.domain.Producer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -11,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,14 +22,13 @@ class ProducerHardCodedRepositoryTest {
     @Mock
     private ProducerData producerData;
     private List<Producer> producers;
+    @InjectMocks
+    private ProducerUtils producerUtils;
 
     @BeforeEach
     void init(){
-        var Ufotable = Producer.builder().id(1L).name("Ufotable").createdAt(LocalDateTime.now()).build();
-        var WitStudio = Producer.builder().id(2L).name("Wit Studio").createdAt(LocalDateTime.now()).build();
-        var StudioGhibli  = Producer.builder().id(3L).name("Studio Ghibli").createdAt(LocalDateTime.now()).build();
-        producers = new ArrayList<>(List.of(Ufotable, WitStudio, StudioGhibli));
 
+        producers = producerUtils.newProducerList();
         BDDMockito.when(producerData.getProducers()).thenReturn(producers);
     }
     @Test
